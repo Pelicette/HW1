@@ -327,6 +327,115 @@ console.log(user==user2);
 Jaenam Jung, false가 출력된다.
 
 
+## 1-14
+
+shallow copy가 바로 아래 단계의 값만 복사함에 따라 생기는 문제를 보여주는 예제이다.
+
+```
+var copyObject=function(target){
+    var result={};
+    for (var prop in target){
+        result[prop]=target[prop];
+    }
+    return result;
+};
+
+var user={
+    name : 'Jaenam',
+    urls:{
+        portfolio: 'https://github.com/abc',
+        blog : 'http://blog.com',
+        facebook: 'http://facebook.com/abc'
+    }
+};
+```
+
+user 객체 선언
+
+user 객체안에 참조형 data인 urls가 있다.
+
+urls는 별도의 data를 가리키고있고 그 data는 urls의 property들을 가리키고 있다.
+
+```
+var user2=copyObject(user);
+
+user2.name='Jung';
+console.log(user.name===user.name);
+```
+
+user2를 선언하고 shallow copy로 user를 복사한다.
+
+user2dml 이름을 바꾼다.
+
+별도의 객체이고 property name은 서로 다른 변수 영역에 저장되어 있으므로 원본 user의 이름은 바뀌지 않는다.
+
+따라서 false를 출력한다.
+
+```
+user.urls.portfolio='http://portfolio.com';
+console.log(user.urls.portfolio===user2.urls.portfolio);
+```
+
+하지만 shallow copy를 할때 단순히 property가 기리키는 주소를 복사한 것이기 때문에 참조형 data인 urls가 복사될때 urls 의 property를 가리키는 
+
+data가 복사된다. 즉 복사된 user2는 같은 urls 객체를 가리킨다.
+
+따라서 user2의 urls.portfolio를 바꾸면 user의 urls.portfolio도 같이 바뀌어서 true를 출력한다.
+
+
+```
+user2.urls.bolg='';
+console.log(user.urls.blog===user2.urls.blog);
+```
+
+이것도 위와 동일하게 true가 출력된다.
 
 
 
+## 1-15
+
+중첩된 객체에 대해서는 어떻게 복사를 해야하는가에 대한 예제이다.
+
+참조형 안에 참조형이 있다면 그 안쪽의 참조형에 대해서 shallow copy를 수행하면 된다. 
+
+```
+var copyObject=function(target){
+    var result={};
+    for (var prop in target){
+        result[prop]=target[prop];
+    }
+    return result;
+};
+
+var user={
+    name : 'Jaenam',
+    urls:{
+        portfolio: 'https://github.com/abc',
+        blog : 'http://blog.com',
+        facebook: 'http://facebook.com/abc'
+    }
+};
+```
+
+```
+var user2=copyObject(user);
+user2.urls=copyObject(user.urls);
+```
+
+user2에 shallow copy를 수행한다. 이때 user2의 urls과 user의 urls은 같은 곳을 가리킨다.
+
+user 객체 내부의 참조형인 urls에 대해서 shallow copy를 수행하여 user2.urls에 넘겨준다.
+
+이제 user2.urls는 새로운 객체를 가리키므로 user.urls와는 다르다.
+
+```
+user.urls.portfolio='http://portfolio.com';
+console.log(user.urls.portfolio===user2.urls.portfolio);
+
+user2.urls.blog='';
+console.log(user.urls.blog===user2.urls.blog);
+```
+
+urls의 property를 바꾸어도 별도의 객체이므로 다른 값을 가진다.
+
+false 출력
