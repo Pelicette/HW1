@@ -260,3 +260,73 @@ console.log(user===user2);
 ```
 
 출력으로 유저 정보가 변경되었습니다., Jaenam Jung, false 가 출력된다.
+
+
+## 1-12
+
+shallow copy함수이다. 
+
+바로 아래 단게의 값만 복사가 가능하다.
+
+```
+var copyObject=function(target){
+    var result={};
+    for (var prop in target){
+        result[prop]=target[prop];
+    }
+    return result;
+};
+```
+
+target 객체를 받은뒤
+
+result라는 빈객체를 만든다.
+
+이후 target객체의 모든 property를 찾아서 result에 같은 이름의 property를 만들고 같은 값을 가리키게 한다.
+
+결과로 result 객체를 반환한다.
+
+별도의 객체이므로 원본은 손상되지 않는다. 
+
+
+## 1-13
+
+1-12 shallow copy함수의 사용 예제이다.
+
+```
+var copyObject=function(target){
+    var result={};
+    for (var prop in target){
+        result[prop]=target[prop];
+    }
+    return result;
+};
+
+var user ={
+    name: 'Jaenam',gender: 'male'
+};
+
+var user2=copyObject(user);
+user2.name='Jung';
+```
+
+이름이 Jaenam, 성별이 남자인 user 객체를 선언한다.
+
+user 객체를 복사하여 새로운 객체를 user2로 넘긴다.
+
+```
+if(user!==user2){
+    console.log('유저 정보가 변경되었습니다.');
+}
+console.log(user.name, user2.name);
+console.log(user==user2);
+```
+
+새로운 객체이므로 유저 정보가 변경되었습니다. 가 출력되고 
+
+Jaenam Jung, false가 출력된다.
+
+
+
+
+
