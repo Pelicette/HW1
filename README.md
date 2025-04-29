@@ -569,6 +569,10 @@ console.log(obj2);
 
 ## 1-19
 
+자바 스크립트에서 자동으로 undefined를 부여하는 경우에 대한 예제이다.
+
+자바 스크립트에서 부여하는 undefined와 혼동하지 않기위해 사용자가 undefined를 사용하지 않아야 한다.
+
 ```
 var a;
 console.log(a);
@@ -601,3 +605,40 @@ console.log(c);
 ```
 
 return이 없는 함수를 실행하면 undefined를 반환한다. undefined 출력
+
+
+## 1-20
+
+빈 배열과 undefined가 있는 배열의 차이에 대한 예제이다.
+
+```
+var arr1=[];
+arr1.length=3;
+console.log(arr1);
+```
+
+빈 array선언후 길이를 3으로 설정한다. 이때 undefined가 아니라 빈 배열이 출력된다. [emptyX3]
+
+실제로는 [...]으로만 출력되었다.
+
+```
+var arr2=new Array(3);
+console.log(arr2);
+```
+
+Array 생성자로 길이가 3인 array을 만들어 arr2에 달당하였다.
+
+마찬가지로 array가 비어있어 빈 배열이 출력된다. [emptyX3]
+
+실제로는 [...]으로만 출력되었다.
+
+```
+var arr3=[undefined,undefined,undefined];
+console.log(arr3);
+```
+
+앞에서의 경우와 달리 사용자가 직접 undefined로 할당하였다.
+
+이 경우 빈것이 아닌 undefined가 있는것이다. 
+
+출력으로 undefined, undefined, undefined가 나온다.
