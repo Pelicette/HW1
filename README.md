@@ -174,3 +174,89 @@ obj2={c:20,d:'ddd'};
 
 property c는 20을 가리키고 d는 ddd를 가리키는데 기존에 있었으므로 같은 ddd를 가리킨다.
 
+
+
+## 1-10
+불변성이 확보되지 않았을때 문제점을 보여주는 예제이다. 
+
+원본 객체가 바뀌는 문제가 발생한다.
+
+```
+var user={
+    name:'Jaenam',
+    gender:'male'
+};
+```
+
+user 객체 선언
+
+```
+var changeName=function(user,newName){
+    var newUser=user;
+    newUser.name=newName;
+    return newUser;
+};
+```
+user객체를 받아=user가 가리키는 주소를 받아 newUser가 같은 주소를 가리키게 한다.
+
+그리고 name property가 가리키는 이름을 바꾸고 객체의 주소를 반환한다.
+
+
+`var user2=changeName(user, 'Jung');`
+
+user 객체를 받아서 name property 를 Jung으로 바꾼후 user2에 반환하였다. 
+
+즉 user2와 user는 같은 곳을 바라보고 있고 원본 user 내부의 값은 바뀌어 버린 상태이다.
+
+```
+if (user!==user2){
+    console.log('유저 정보가 변경되었습니다.');
+}
+console.log(user.name,user2.name);
+console.log(user===user2);
+```
+
+출력으로 같은 이름이 나오고 true가 출력된다.
+
+
+## 1-11 
+
+객체의 불변성을 확보하기 위해서 어떻게 해야하는지에 대한 예제이다.
+
+함수에서 새로운 객체를 return함으로서 해결하였다.
+
+
+```
+var user={
+    name:'Jaenam',
+    gender:'male'
+};
+```
+
+```
+var changeName=function(user,newName){
+    return {
+        name : newName,
+        gender : user.gender
+    };
+};
+```
+
+user 객체를 받은후 새로운 객체를 반들어 반환하는 함수이다. 
+
+이전 예제와는 달리 별도의 data를 가리키는 별도의 객체이므로 원본이 유지될수있다.
+
+새로운 user 객체와 형태가 같은 객체를 생성한뒤 이름을 할당하고 gender는 받은 객체의 gender와 동일한 값을 가리키게 설정한다.
+
+
+```
+var user2=changeName(user, 'Jung');
+
+if (user!==user2){
+    console.log('유저 정보가 변경되었습니다.');
+}
+console.log(user.name,user2.name);
+console.log(user===user2);
+```
+
+출력으로 유저 정보가 변경되었습니다., Jaenam Jung, false 가 출력된다.
