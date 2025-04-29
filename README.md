@@ -564,3 +564,40 @@ console.log(obj2);
 
 {a: 1. b: { c: null, d: [1, 3], func1: f() }, func2: f() }
 {a: 3. b: { c: 4, d: [1, 2] } }
+
+
+
+## 1-19
+
+```
+var a;
+console.log(a);
+```
+
+data를 할당하지 않은 identifier에 접근시 undefined 출력
+
+```
+var obj={a:1};
+console.log(obj.a);
+```
+
+정상적인 접근, 1출력
+
+```
+console.log(obj.b);
+console.log(b);
+```
+
+존재하지 않는 property에 접근시 undefined 출력
+
+존재하지 않는 변수 접근 error 문구 출력
+
+Uncaught ReferenceError ReferenceError: b is not defined 
+
+```
+var func=function(){};
+var c=func();
+console.log(c);
+```
+
+return이 없는 함수를 실행하면 undefined를 반환한다. undefined 출력
