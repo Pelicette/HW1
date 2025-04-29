@@ -462,3 +462,53 @@ var copyObjectDeep=function(target){
 ```
 
 앞에서 보았던 shallow copy를 재귀적으로 수행하여 가장 깊은 곳에서 위까지 객체로서 반환하여 모든 참조형 객체들을 별도의 객체를 만들어 할당한다.
+
+
+## 1-17
+
+앞에서의 Deep copy함수를 사용한 예제이다. 
+
+```
+var copyObjectDeep=function(target){
+    var result={};
+    if (typeof target=='object' && target!==null){
+        for (var prop in target){
+            result[prop]=copyObjectDeep(target[prop]);
+        }
+    }
+    else {
+        result=target;
+    }
+    return result;
+}
+```
+
+```
+var obj={
+    a:1,
+    b:{
+        c:null,
+        d:[1,2]
+    }
+};
+var obj2=copyObjectDeep(obj);
+
+obj2.a=3;
+obj2.b.c=4;
+obj.b.d[1]=3;
+```
+
+객체 obj선언후 Deep copy수행
+
+재귀적으로 모든 참조형 객체들을 별도의 객체를 만들어 반환햐였으므로 원본이 바뀌지 않는다.
+
+
+```
+console.log(obj);
+console.log(obj2);
+```
+
+따라서 출력은 
+{a: 1. b: { C: null, d: [1 ,3] } }
+
+{a: 3. b: { C: 4, d: {0:1, 1:2} } }
