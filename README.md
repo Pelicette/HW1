@@ -512,3 +512,55 @@ console.log(obj2);
 {a: 1. b: { C: null, d: [1 ,3] } }
 
 {a: 3. b: { C: 4, d: {0:1, 1:2} } }
+
+
+
+## 1-18
+
+JSON을 이용한 Deep copy 방법이다.
+
+```
+var copyObjectViaJSON=function(target){
+    return JSON.parse(JSON.stringify(target));
+};
+```
+
+객체를 JSON 문자열로 바꾸었다가 다시 JSON 객체로 바꾸면 Deep copy가 가능하다.
+
+하지만 순수 정보가 아닌 함수 같은 경우 JSON으로 바꾸지 못하여 무시하고 복사하지 않는다.
+
+
+```
+var obj={
+    a:1,
+    b:{
+        c:null,
+        d:[1,2],
+        func1:function(){console.log(3);},
+        func2:function(){console.log(4);}
+    }
+};
+var obj2=copyObjectViaJSON(obj);
+
+obj2.a=3;
+obj2.b.c=4;
+obj.b.d[1]=3;
+```
+
+obj를 선언하고 JSON Deep copy를 이용하여 obj2로 복사하였다.
+
+obj2 의 property a는 3을 가리키고 property b.c 는 4를 가리킨다.
+
+원본인 obj의 property b.[1]은 3을 가리킨다.
+
+이때 함수 같은 경우 무시하고 복사하지 않았으므로 obj.b.func1과 obj.func2는 복사되지 않았다.
+
+```
+console.log(obj);
+console.log(obj2);
+```
+
+따라서 결과는 
+
+{a: 1. b: { c: null, d: [1, 3], func1: f() }, func2: f() }
+{a: 3. b: { c: 4, d: [1, 2] } }
