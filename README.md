@@ -439,3 +439,26 @@ console.log(user.urls.blog===user2.urls.blog);
 urls의 property를 바꾸어도 별도의 객체이므로 다른 값을 가진다.
 
 false 출력
+
+
+
+## 1-16
+
+Deepcopy 함수
+
+```
+var copyObjectDeep=function(target){
+    var result={};
+    if (typeof target=='object' && target!==null){
+        for (var prop in target){
+            result[prop]=copyObjectDeep(target[prop]);
+        }
+    }
+    else {
+        result=target;
+    }
+    return result;
+}
+```
+
+앞에서 보았던 shallow copy를 재귀적으로 수행하여 가장 깊은 곳에서 위까지 객체로서 반환하여 모든 참조형 객체들을 별도의 객체를 만들어 할당한다.
