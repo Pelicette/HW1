@@ -1118,3 +1118,22 @@ inner 수행으로 inner E.C가 call stack에 들어간다.
 1출력 outer 종료로 outer E.C pop, 마지막 console.log(a)는 전역의 내부환경 a=1을 가져와 출력
 
 
+## 2-14
+
+크롬 브라우저에서 스코프 정보들을 확인하는 방법을 실습하는 예제이다. 
+
+```
+var a = 1;
+var outer = function() {
+  var b = 2;
+  var inner = function() {
+    console.dir(inner);
+  };
+  inner();
+};
+outer();
+```
+
+실제 확인시 outer의 스코프에 inner만 확인된다. 변수 b는 확인되지 않았다. 책에서는 브라우저 성능향상을 위해서
+
+inner 내부에서 사용되지 않아서 최적화를 위해 이런 처리를 했다고 설명한다.
