@@ -1739,3 +1739,25 @@ reduce는 callback function을 인자로 받고 초기값을 할당 가능하다
 
 이런식으로 모든 배열값에대해 반복된다. 결과적으로 a0b1c2 3d4e5f6을 출력한다.
 
+
+
+## 3-20
+
+slice를 유사배열 객체를 배열로 복사하는것은 본래 slice의 의도와는 맞지 않다.
+
+유사배열객체와 순회 가능한 모든 종류의 데이터 타입을 배열로 바꾸는 Array.from메서드가 있다.
+
+```
+var obj = {
+    0: 'a',
+    1: 'b',
+    2: 'c',
+    length: 3,
+};
+var arr = Array.from(obj);
+console.log(arr);
+```
+
+var arr = Array.from(obj)을 수행하여 obj객체를 배열로 만들어 arr에 넘기고 출력하였다.
+
+['a', 'b', 'c']를 출력한다.
