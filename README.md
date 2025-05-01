@@ -1824,3 +1824,21 @@ max값과 min값을 배열의 첫번째 값으로 할당한뒤 forEach로 배열
 비교값이 max보다 크다면 비교한 값을 새로운 max로 비교값이 min보다 작으면 비교한 값이 새로운 min으로 할당하여 
 
 최대 최소값을 찾는 함수이다.
+
+
+## 3-23
+
+앞의 예제코드와 비교해서 apply를 이용하면 간단하게 구현가능하다.
+
+```
+var numbers = [10, 20, 3, 16, 45];
+var max = Math.max.apply(null, numbers);
+var min = Math.min.apply(null, numbers);
+console.log(max, min);
+```
+
+Math.max메서드를 apply를 이용하여 인수로 배열을 넘겨주어 바로 max값을 구할수있다. 
+
+Math.min메서드를 apply를 이용하여 인수로 배열을 넘겨주어 바로 min값을 구할수있다. 
+
+Math.max, Math.min은 this를 이용하지 않아 null을 인자로 사용하면된다. 
