@@ -1342,3 +1342,41 @@ obj['method'](2);
 obj.method(1), obj['method'](2)모두 mothod: f 를 출력하여 메서드임을 증명하였다.
 
 즉 어떤 함수를 호출할때 앞에 객체가 있으면 메서드로 호출한것이다.
+
+
+
+## 3-8
+
+앞에서 설명했듯이 .앞에 객체가 있으면 메서드로서 사용된것인데 이 점표기법에서 .앞의 객체가 메서드를 호출한 것이므로
+
+메서드의 this는 .앞의 객체를 가리킨다.
+
+```
+var obj = {
+    methodA: function() {
+      console.log(this);
+    },
+    inner: {
+      methodB: function() {
+        console.log(this);
+      },
+    },
+};
+obj.methodA(); 
+obj['methodA'](); 
+```
+
+위의 말대로 obj.methodA()에서 .앞에 객체가 있으므로 메서드고 메서드의 this는 obj를 가리킨다. obj 출력.
+
+obj['methodA']()도 같은 의미이므로 같은 출력을 한다.
+
+```
+obj.inner.methodB(); 
+obj.inner['methodB'](); 
+obj['inner'].methodB(); 
+obj['inner']['methodB'](); 
+```
+
+위의 4개의 line은 모두 같은 의미이다. .표현과 []표현을 섞은것 뿐이다. 
+
+obj.inner.methodB() 에서 emthodB앞에 .이 있으므로 method고 mothod는 obj.inner를 가리킨다. obj.inner 출력.
