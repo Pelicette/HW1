@@ -1380,3 +1380,38 @@ obj['inner']['methodB']();
 위의 4개의 line은 모두 같은 의미이다. .표현과 []표현을 섞은것 뿐이다. 
 
 obj.inner.methodB() 에서 emthodB앞에 .이 있으므로 method고 mothod는 obj.inner를 가리킨다. obj.inner 출력.
+
+
+## 3-9
+
+메서드 내부에서 함수의 this는 어떻게 되는지에대한 예제이다.
+
+```
+var obj1 = {
+    outer: function() {
+      console.log(this);
+      var innerFunc = function() {
+        console.log(this);
+      };
+      innerFunc();
+  
+      var obj2 = {
+        innerMethod: innerFunc,
+      };
+      obj2.innerMethod();
+    },
+};
+obj1.outer();
+```
+
+함수의 this는 지정되지 않고 자동으로 전역객체가 바인딩된다. 
+
+먼저 obj에 객체할당하고 obj1.outer()수행한다. outer: function() 바로 아래 line에서의 this는 obj1.outer이므로 obj가 불러왔으므로
+
+obj이다. console.log(this) 수행으로 obj1을출력하고 innerfunc에 함수를 할당하고 innerFunc()을 수행한다.
+
+표현에서 알수있듯이 앞에 .이 없으므로 함수로써 호출된 것이다. 때문에 inner안의 console.log(this)로는 window가 출력된다.
+
+이후 obj2에 객체를 할당하고 obj2.innerMethod();를 수행한다. .표현을 사용했으므로 메서드로 호출한 것이고 innerMehod의 this는 obj2를
+
+가리킨다. 때문에 innerMethod를 출력한다.
