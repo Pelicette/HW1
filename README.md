@@ -1292,3 +1292,34 @@ console.log(d, window.d, this.d);
 ```
 
 하지만 전역객체의 property로 선언할경우 delete로 삭제가 가능하여 console.log시 error메시지가 출력된다.
+
+
+## 3-6 
+
+메서드는 어떤 객체의 property로 할당한다고 메서드가 되는것이 아니다.
+
+눈으로 보기에는 그냥 property로 할당되어있다고 보여고 runtime에서는 언제든지 메서드가 아니라 함수가 될수있다. 
+
+또한 모든 함수는 this를 가지고 있는데 자기를 불러준 object를 가리킨다.
+
+```
+var func = function(x) {
+    console.log(this, x);
+};
+func(1);
+```
+
+func(1)수행시 func은 전역에서 불러오므로 func의 this는 window를 가리킨다.
+
+```
+var obj = {
+    method: func,
+};
+obj.method(2);
+```
+
+이제는 객체안에있는 함수 불러와보자 obj.method(2)수행시 obj에서 func을 불러왔으므로 this는 obj를 가리킨다. 즉 메서드이다.
+
+두가지 경우 모두 같은 함수를 가져왔지만 경우에 따라 메서드가 되기도 하고 함수가 되기도 한다.
+
+이것을 쉽게 구분할수 있는 방법은 앞에 .이 있는가 보는것이다.
