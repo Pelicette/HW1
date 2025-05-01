@@ -1211,3 +1211,23 @@ console.log(this === global);
 console.log(global)는 error 메세지를 출력하였다.
 
 하지만 node.js 환경에서는 this===global이므로 예제 3-1과 같은 결과를 출력할것이다.
+
+
+## 3-3 
+
+전역변수는 전역 객체의 property이다.
+
+```
+var a = 1;
+console.log(a);
+console.log(window.a);
+console.log(this.a);
+```
+
+때문에 변수 a는 전역 객체의 property이다.
+
+따라서 console.log(window.a)은 전역객체의 property a를 출력하는것이고 
+
+console.log(this.a)는 this=전역에서는 전역객체를 가리키므로 전역객체의 property a를 출력하는 것이다.
+
+결과는 전부 a인 1을 출력한다.
