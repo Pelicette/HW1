@@ -2005,3 +2005,28 @@ obj.logThisLater2()수행시 setTimeout(this.logThis.bind(this), 1000)가 수행
 즉 obj.logThis.bind(this)를 1000ms 이후 수행하라는 것이다. 그런데 이때 bind메서드가 사용되어서 바로 수행되지는 않지만 미리 obj.logThis의 
 
 this를 obj로 설정하였다. 따라서 1000ms 이후 logThis 수행시 this는 obj가 되어 console.log(this)는 obj를 출력한다.
+
+
+
+## 3-29
+
+화살표 함수를 사용하면 call/apply/bind를 사용하지 않고도 내부함수의 this가 window를 가리키지 않게 만들수있다. 
+
+```
+var obj = {
+    outer: function() {
+      console.log(this);
+      var innerFunc = () => {
+        console.log(this);
+      };
+      innerFunc();
+    },
+};
+obj.outer();
+```
+
+outer()수행시 outer: function()밑의 console.log(this)은 .표현식에서 알수있듯이 outer의 this는 obj이므로 obj출력
+
+innerFunc() 수행시 var innerFunc = () => 은 this 자체를 바인딩 하지않아 this를 scope chain상 가장 가까운 this를 찾는데 그것이 outer의 
+
+this obj이다. 따라서 innerFunc에서 console.log(this)는 obj를 출력한다.
