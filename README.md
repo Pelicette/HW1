@@ -1860,3 +1860,41 @@ console.log(max, min);
 ```
 
 ...numbers를 사용시 [10, 20, 3, 16, 45] -> 10, 20, 3, 16, 45로 각 인자를 넣은 효과
+
+
+
+## 3-25 
+
+bind매서드 활용 예시이다. bind메서드는 마치 call을 미리 적용한것과 같은 효과를 준다. 
+
+.bind사용시 즉시 호출하지않고 사용한 인수들을 바탕으로 새로운 함수를 반환하기만 하기때문이다.
+
+```
+var func = function(a, b, c, d) {
+    console.log(this, a, b, c, d);
+};
+func(1, 2, 3, 4);
+```
+
+func(1, 2, 3, 4) 수행시 this는 window를 가리키고 a,b,c,d=1,2,3,4이므로 window와 1,2,3,4를 출력한다.
+
+```
+var bindFunc1 = func.bind({ x: 1 });
+bindFunc1(5, 6, 7, 8);
+```
+
+func.bind({ x: 1 })시 바로 func이 수행되지는 않지만 bindFunc1(5, 6, 7, 8)수행시 마치 
+
+func.call({ x: 1 },5,6,7,8)이 수행된 것과 같은 출력을 가진다. 즉 {x: 1} 5 6 7 8을 출력함
+
+```  
+var bindFunc2 = func.bind({ x: 1 }, 4, 5);
+bindFunc2(6, 7);
+bindFunc2(8, 9);
+```
+
+func.bind({ x: 1 }, 4, 5)에서 바로 function을 수행하지는 않지만 
+
+bindFunc2(6, 7)수행시 func.call({ x: 1 }, 4, 5,6,7)d을 수행한 것과 같은 효과를 가진다. 출력은{x: 1} 4 5 6 7
+
+bindFunc2(8, 9)수행시 func.call({ x: 1 }, 4, 5,8,9)d을 수행한 것과 같은 효과를 가진다. 출력은{x: 1} 4 5 8 9
