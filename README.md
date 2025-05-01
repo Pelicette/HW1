@@ -2068,3 +2068,24 @@ report.add(60, 85, 95) 동작 결과로 report.count는 인자 개수인 3이되
 
 console.log(report.sum, report.count, report.average())의 출력은 240, 3, 80이다.
 
+
+
+
+
+## 3-31
+
+forEach이외에 thisArg를 인자로 받는 메서드들의 문법들을 보여주는 예시이다.
+
+```
+Array.prototype.forEach(callback[, thisArg])
+Array.prototype.map(callback[, thisArg])
+Array.prototype.filter(callback[, thisArg])
+Array.prototype.some(callback[, thisArg])
+Array.prototype.every(callback[, thisArg])
+Array.prototype.find(callback[, thisArg])
+Array.prototype.findIndex(callback[, thisArg])
+Array.prototype.flatMap(callback[, thisArg])
+Array.prototype.from(arrayLike[, callback[, thisArg]])
+Set.prototype.forEach(callback[, thisArg])
+Map.prototype.forEach(callback[, thisArg])
+```
