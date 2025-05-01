@@ -1449,3 +1449,29 @@ innerFunc1();이 호출되면 함수로서 호출되어 자동으로 this가 win
 
 window가 아니라 obj가 출력된다.
 
+
+
+## 3-11
+
+this 를 바인딩하는 것 차제를 못하게 하여 scope chain을 따라가서 this를 찾게 만드는 방법으로 
+
+this를 상속하는 방법이다. 
+
+```
+var obj = {
+    outer: function() {
+      console.log(this);
+      var innerFunc = () => {
+        console.log(this);
+      };
+      innerFunc();
+    },
+};
+obj.outer();
+```
+
+outer()수행시 outer: function()밑의 console.log(this)은 obj가 outer을 호출한 것이므로 this가 obj를 가리켜 obj를 출력한다.
+
+innerFunc() 수행시 var innerFunc = () => 은 this 자체를 바인딩 하지않아 this를 scope chain을 따라서 this를 찾는다. 이때 외부환경을
+
+찾는데 outer가 바로 밖에 있다. outer의 this를 그대로 가져와 obj를 가리킨다. obj출력
