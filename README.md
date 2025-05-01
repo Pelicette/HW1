@@ -1175,3 +1175,22 @@ var outer = function() {
 };
 outer();
 ```
+
+
+## 3-1
+
+전역에서의 this를 설명하는 예제이다. 
+
+this는 실행 컨택스트가 생성될때 결정되는데 실행컨택스트는 함수를 호출할때 생성되므로 this는 함수를 호출할때 결정된다.
+
+이때 전역 객체가 전역 컨택스트를 생산하기 때문에 전역에서 this는 전역 객체를 가리킨다.
+
+```
+console.log(this);
+console.log(window);
+console.log(this === window);
+```
+
+브라우저 환경에서 this는 window이므로 console.log(this)와 console.log(window)는 같은 결과를 출력한다.
+
+console.log(this === window) 또한 true로 출력된다. (this는 window와 같다는것을 증명)
