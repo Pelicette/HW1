@@ -730,3 +730,35 @@ console.log(n===null);
 정확히 비교하려면 ===를 써야한다.
 
 n===undefined 는 false, n===null 는 true라고 출력된다.
+
+
+
+## 2-1
+
+call stack의 개념을 설명하는 예제이다.
+
+```
+var a=1;
+function outer() {
+  function inner() {
+    console.log(a);
+    var a=3;
+  }
+  inner(); 
+  console.log(a); 
+}
+outer(); 
+console.log(a); 
+```
+
+먼저 global 환경정보가 수집되어 golbal E.C가 call stack에 담긴다. 
+
+이후 outer() 수행시 outer의 환경정보 수집후 outer E.C가 call stack에 담긴다. 
+
+outer함수에서 inner()를 만나 inner의 환경정보를 수집해 inner E.C가 call stack에 담긴다. 
+
+이후 역순으로 inner가 끝나면 inner E.C가 pop되고 다음은 outer, 마지막으로 global이 pop된다.(stack동작)
+
+inner 실행시 undefined가 나오는데 hoisting이후 실행 단계시 a가 가리키는 값이 없기 때문이다.
+
+outer안의 a출력시 1이 나오는 이유는 outer안에 a변수가 스코프 체인을 통해 전역에 있는 a를 찾아 출력했기 때문이다. 
