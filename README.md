@@ -1830,6 +1830,8 @@ max값과 min값을 배열의 첫번째 값으로 할당한뒤 forEach로 배열
 
 앞의 예제코드와 비교해서 apply를 이용하면 간단하게 구현가능하다.
 
+여러 인수를 받는 메서드라면 apply이용하여 배열의 형태로 한번에 넣을수있다.
+
 ```
 var numbers = [10, 20, 3, 16, 45];
 var max = Math.max.apply(null, numbers);
@@ -1842,3 +1844,19 @@ Math.max메서드를 apply를 이용하여 인수로 배열을 넘겨주어 바�
 Math.min메서드를 apply를 이용하여 인수로 배열을 넘겨주어 바로 min값을 구할수있다. 
 
 Math.max, Math.min은 this를 이용하지 않아 null을 인자로 사용하면된다. 
+
+
+
+## 3-24
+
+여러 인수를 가지는 메서드에서 배열을 가져온뒤 펼치기 연산자를 사용하면 더욱 간단하게 구현가능하다.
+
+
+```
+const numbers = [10, 20, 3, 16, 45];
+const max = Math.max(...numbers);
+const min = Math.min(...numbers);
+console.log(max, min);
+```
+
+...numbers를 사용시 [10, 20, 3, 16, 45] -> 10, 20, 3, 16, 45로 각 인자를 넣은 효과
