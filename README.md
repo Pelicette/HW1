@@ -1605,3 +1605,35 @@ obj.method.apply({ a: 4 }, [5, 6]);
 obj.method.apply({ a: 4 }, [5, 6]) 에서 obj의 this는 { a: 4 }을 가리키고 obj의 매개변수로 5, 6을 념겨준다. 
 
 console.log(this.a, x, y)는 console.log({ a: 4 }.a, 5, 6)과 같고 출력은 4, 5, 6
+
+
+
+## 3-17
+
+유사배열 객체에대한 예제이다. 유사배열 객체란 배열의 index처럼 양의 정수의 key를 가지고 length property를 가지는
+
+객체이다. 배열메서드를 이런 유사배열 객체에도 적용할수있다. 그 방법은 call함수로 메서드의 this를 유사배열 객체를 가리키게 하는것이다.
+
+```
+var obj = {
+  0: 'a',
+  1: 'b',
+  2: 'c',
+  length: 3,
+};
+Array.prototype.push.call(obj, 'd');
+console.log(obj); // { 0: 'a', 1: 'b', 2: 'c', 3: 'd', length: 4 }
+```
+
+Array.prototype.push.call(obj, 'd')로 Array.prototype.push의 this가 obj를 가리키게하여 배열 매서드인 push를 유사배열 객체에
+
+수행한다. 그 결과로 d가 push되어 0: 'a', 1: 'b', 2: 'c', 3: 'd', length: 4가 출력된다.
+
+```
+var arr = Array.prototype.slice.call(obj);
+console.log(arr);
+```
+
+var arr = Array.prototype.slice.call(obj)로 Array.prototype.slice의 this가 obj를 가리키게하여 배열 매서드인 slice를 유사배열 객체에
+
+수행한다. 그 결과로 obj의 배열 복사본인 ['a', 'b', 'c', 'd']가 출력된다.
