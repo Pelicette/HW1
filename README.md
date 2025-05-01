@@ -1415,3 +1415,37 @@ obj이다. console.log(this) 수행으로 obj1을출력하고 innerfunc에 함�
 이후 obj2에 객체를 할당하고 obj2.innerMethod();를 수행한다. .표현을 사용했으므로 메서드로 호출한 것이고 innerMehod의 this는 obj2를
 
 가리킨다. 때문에 innerMethod를 출력한다.
+
+결과적으로 함수 호출시 앞에 .있는지 없는지, 있다면 앞의 객체가 무엇인지만 확인하면 this가 무엇을 가리키는지 알수있다.
+
+
+
+## 3-10
+
+내부함수가 호출될시 this가 window가 아니라 주변 환경의 this를 상속시키는 방법에 대한 예제이다.
+
+```
+var obj = {
+    outer: function() {
+      console.log(this);
+      var innerFunc1 = function() {
+        console.log(this);
+      };
+      innerFunc1();
+  
+      var self = this;
+      var innerFunc2 = function() {
+        console.log(self);
+      };
+      innerFunc2();
+    },
+};
+obj.outer();
+```
+
+innerFunc1();이 호출되면 함수로서 호출되어 자동으로 this가 window를 가리킨다.
+
+그런데 새로운 self 변수에 this를 할당하고(outer의 this이므로 obj를 가리킨다.) innerFunc2()수행시 this대신에 이 self를 출력하면
+
+window가 아니라 obj가 출력된다.
+
