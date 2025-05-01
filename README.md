@@ -1761,3 +1761,41 @@ console.log(arr);
 var arr = Array.from(obj)을 수행하여 obj객체를 배열로 만들어 arr에 넘기고 출력하였다.
 
 ['a', 'b', 'c']를 출력한다.
+
+
+## 3-21
+
+생성자간 공통된 내용이 있다면 call과 apply를 이용하여 공통된 부분을 반복하지않고 한번에 처리할수있다.
+
+```
+function Person(name, gender) {
+    this.name = name;
+    this.gender = gender;
+}
+function Student(name, gender, school) {
+    Person.call(this, name, gender);
+    this.school = school;
+}
+```
+
+```
+function Employee(name, gender, company) {
+    Person.apply(this, [name, gender]);
+    this.company = company;
+}
+```
+
+
+```
+var by = new Student('보영', 'female', '단국대');
+var jn = new Employee('재난', 'male', '구골');
+```
+student 생성자 수행시 this가 객체를 가리키는데 생성자 student안에  Person.call(this, name, gender)이 수행되어 Person의 this가 student의
+
+this와 같게한다. 따라서 person함수가 수행되서 생성되는 property가 student의 this가 가리키는 객체에 할당된다. 그리고 공통된 내용이 아닌것은 
+
+student 생성자안에서 property를 만든다. 이런식으로 생성자 안에서 call을 사용하여 여러 생성자에 있는 property를 한번에 만들수있다.
+
+결과적으로 Student {name: '보영', gender: 'female', school: '단국대'}, mployee {name: '재난', gender: 'male', company: '구골'}
+
+이 할당된다.
