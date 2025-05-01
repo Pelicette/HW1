@@ -1971,3 +1971,37 @@ outer: function() 믿의 console.log(this)에서 this는 obj를 가리킨다. �
 var innerFunc = function() {console.log(this);}.bind(this)로 즉시 실행은 안되지만 innerFunc()수행시 innerFunc의 this를 outer의 this 
 
 즉 obj를 가리키게 한다. 따라서 innerFunc()가 수행될때 console.log(this)의 출력은 obj={outer: ƒ}이다.
+
+
+
+## 3-28
+
+콜백함수에서의 this를 bind를 이용하여 바꿀수 있다. 
+
+```
+var obj = {
+    logThis: function() {
+      console.log(this);
+    },
+    logThisLater1: function() {
+      setTimeout(this.logThis, 500);
+    },
+    logThisLater2: function() {
+      setTimeout(this.logThis.bind(this), 1000);
+    },
+};
+obj.logThisLater1();
+obj.logThisLater2();
+```
+
+obj.logThisLater1() 수행시 setTimeout(this.logThis, 500)이 수행되는데 여기서 this는 .표현식으로 obj라는 것을 알수있다. 즉 obj.logThis를 
+
+500ms 이후 수행하라는 것이다. logThis수행시 console.log(this)의 this는 this.logThis에서 알수있듯이 obj의 this와 같은데 obj의 this는 
+
+window다.
+
+obj.logThisLater2()수행시 setTimeout(this.logThis.bind(this), 1000)가 수행되는데 여기서 this는 .표현식으로 obj라는 것을 알수있다.
+
+즉 obj.logThis.bind(this)를 1000ms 이후 수행하라는 것이다. 그런데 이때 bind메서드가 사용되어서 바로 수행되지는 않지만 미리 obj.logThis의 
+
+this를 obj로 설정하였다. 따라서 1000ms 이후 logThis 수행시 this는 obj가 되어 console.log(this)는 obj를 출력한다.
