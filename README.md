@@ -1137,3 +1137,24 @@ outer();
 실제 확인시 outer의 스코프에 inner만 확인된다. 변수 b는 확인되지 않았다. 책에서는 브라우저 성능향상을 위해서
 
 inner 내부에서 사용되지 않아서 최적화를 위해 이런 처리를 했다고 설명한다.
+
+
+## 2-15
+
+앞의 예제에 이어서 이번에는 inner안에서 변수 b를 사용해 보았다. 
+
+```
+var a = 1;
+var outer = function() {
+  var b = 2;
+  var inner = function() {
+    console.log(b);
+    console.dir(inner);
+  };
+  inner();
+};
+outer();
+```
+
+실제로 scope에서 inner와 b가 나타남을 확인하였다.
+
