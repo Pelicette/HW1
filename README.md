@@ -1547,3 +1547,29 @@ func.call({ x: 1 }, 4, 5, 6);
 func실행시 함수로 실행했으므로 this는 window를 가리키게된다. 출력으로 window와 1,2,3을 출력한다.
 
 하지만 func.call({ x: 1 }, 4, 5, 6) 수행시 this는 { x: 1 }를 가리키고 매개변수로 1,2,3 을 넘기므로 this인 { x: 1 }와 1,2,3을 출력한다.
+
+
+
+## 3-15
+
+앞의 예제의 연장선이다.
+
+```
+var obj = {
+    a: 1,
+    method: function(x, y) {
+      console.log(this.a, x, y);
+    },
+};
+  
+obj.method(2, 3);
+obj.method.call({ a: 4 }, 5, 6);
+```
+
+obj.method(2,3)수행시 method의 this는 obj이다. 따라서 console.log(this.a, x, y) 는 console.log(obj.a, 2, 3)이므로
+
+1,2,3을 출력한다.
+
+obj.method.call({ a: 4 }, 5, 6) 수행시 method의 this는 { a: 4 }이다. 따라서 console.log(this.a, x, y)는 
+
+console.log({ a: 4 }.a, 5, 6) 이므로 4,5,6을 출력한다.
