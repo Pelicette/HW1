@@ -1501,3 +1501,27 @@ setTimeout(function() {console.log(this);}, 300);는 300ms 이후 window를 출�
 
 document.body.querySelector('#a').addEventListener는 자신의 this를 callback함수에게 상속한다.
 
+
+
+## 3-13
+
+new 명령어와 같이 함수를 호출하면 생성자가되어 this가 자신을가리킨다. 
+
+```
+var Cat = function(name, age) {
+    this.bark = '야옹';
+    this.name = name;
+    this.age = age;
+};
+var choco = new Cat('초코', 7);
+var nabi = new Cat('나비', 5);
+console.log(choco, nabi);
+```
+
+new Cat동작시 this는 빈 object를 가리키고있고 cat function을 수행하면 this.bark = '야옹'로 property를 만들고 argument로 받은 
+
+name과 age를이용해 this.name, this.age로 자기자신의 property를 할당한다. 따라서 var choco = new Cat('초코', 7)이면 새 이름이 초코,
+
+나이가 7인 인스턴스를 만들어 choco에 넘긴것이다. var nabi = new Cat('나비', 5)도 동일하다.
+
+console.log(choco, nabi)출력은 Cat {bark: '야옹', name: '초코', age: 7} Cat {bark: '야옹', name: '나비', age: 5}
