@@ -1525,3 +1525,25 @@ name과 age를이용해 this.name, this.age로 자기자신의 property를 할�
 나이가 7인 인스턴스를 만들어 choco에 넘긴것이다. var nabi = new Cat('나비', 5)도 동일하다.
 
 console.log(choco, nabi)출력은 Cat {bark: '야옹', name: '초코', age: 7} Cat {bark: '야옹', name: '나비', age: 5}
+
+
+## 3-14
+
+call 메서드의 활용에 대한 예제이다.
+
+call 메서드를 사용하면 임의의 객체를 this로 지정할수 있다.
+
+call 메서드사용시 첫번째 인자를 this로 바인딩하고 나머지 인자들을 호출한 함수의 매개변수로 넘긴다.
+
+```
+var func = function(a, b, c) {
+    console.log(this, a, b, c);
+};
+  
+func(1, 2, 3);
+func.call({ x: 1 }, 4, 5, 6);
+```
+
+func실행시 함수로 실행했으므로 this는 window를 가리키게된다. 출력으로 window와 1,2,3을 출력한다.
+
+하지만 func.call({ x: 1 }, 4, 5, 6) 수행시 this는 { x: 1 }를 가리키고 매개변수로 1,2,3 을 넘기므로 this인 { x: 1 }와 1,2,3을 출력한다.
