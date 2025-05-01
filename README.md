@@ -1158,3 +1158,20 @@ outer();
 
 실제로 scope에서 inner와 b가 나타남을 확인하였다.
 
+
+## 2-16
+
+debugger를 사용하여 크롬 디버깅 기능을 이용한 스코프 체인과 this정보를 볼수있는 예제이다.
+
+```
+var a = 1;
+var outer = function() {
+  var b = 2;
+  var inner = function() {
+    console.log(b);
+    debugger;
+  };
+  inner();
+};
+outer();
+```
