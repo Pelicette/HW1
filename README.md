@@ -1919,3 +1919,55 @@ console.log(bindFunc.name);
 console.log(func.name) 처럼 bind를 사용하지 않은 것은 name property로 함수명인 func가 출력된다.
 
 console.log(bindFunc.name)처럼 bind를 사용한후 name property를 보면 bound func가 출력된다. 
+
+
+
+## 3-27-1
+
+내부함수가 호출될시 this가 window가 아니라 주변 환경의 this를 상속시키는 방법으로 변수활용이 아니라
+
+call, apply, bind를 사용하여 처리할수있다.
+
+```
+var obj = {
+    outer: function() {
+      console.log(this);
+      var innerFunc = function() {
+        console.log(this);
+      };
+      innerFunc.call(this);
+    },
+};
+obj.outer();
+```
+
+outer: function() 믿의 console.log(this)에서 this는 obj를 가리킨다. 따라서 {outer: ƒ}출력
+
+이후 innerFunc.call(this)수행시 .표현식이 아니므로 this가 window를 가리켜야 하지만 call를 사용하여 innerFunc의 this가 
+
+outer의 this 즉 obj를 가리키게 한다. 따라서 출력은 {outer: ƒ}
+
+
+
+## 3-27-2
+
+이번에는 call이 아니라 bind를 사용하여 this를 상속시켜보겠다.
+
+```
+var obj = {
+    outer: function() {
+      console.log(this);
+      var innerFunc = function() {
+        console.log(this);
+      }.bind(this);
+      innerFunc();
+    },
+};
+obj.outer();
+```
+
+outer: function() 믿의 console.log(this)에서 this는 obj를 가리킨다. 따라서 {outer: ƒ}출력
+
+var innerFunc = function() {console.log(this);}.bind(this)로 즉시 실행은 안되지만 innerFunc()수행시 innerFunc의 this를 outer의 this 
+
+즉 obj를 가리키게 한다. 따라서 innerFunc()가 수행될때 console.log(this)의 출력은 obj={outer: ƒ}이다.
