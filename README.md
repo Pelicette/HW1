@@ -1215,7 +1215,7 @@ console.log(global)는 error 메세지를 출력하였다.
 
 ## 3-3 
 
-전역변수는 전역 객체의 property이다.
+전역변수는 전역 객체의 property이다., 자바스크립트의 모든 변수는 특정 객체의 property로 동작한다.
 
 ```
 var a = 1;
@@ -1231,3 +1231,30 @@ console.log(this.a);
 console.log(this.a)는 this=전역에서는 전역객체를 가리키므로 전역객체의 property a를 출력하는 것이다.
 
 결과는 전부 a인 1을 출력한다.
+
+
+## 3-4
+
+전역 객체의 property로 할당하여 전역변수를 선언하는 예제이다.
+
+앞의 예제에서의 설명과 같이 전역변수는 전역객체의 property이기 때문에 window.변수로 표현해도 동일하다.
+
+```
+var a = 1;
+window.b = 2;
+console.log(a, window.a, this.a);
+console.log(b, window.b, this.b);
+```
+
+전역변수 a를 선언하고 전역번수는 b는 window.b 표현으로 전역 객체의 property로 선언한다. 하지만 이 둘은 같은 의미이다.
+
+window=this=전역객체, a 는 this.a에서 this가 생략되었다고 볼수있으므로 console.log(a, window.a, this.a)는
+
+같은 a에 할당된 1을 출력한다. 나머지 코드들도 동일하게 해석할수있다. 
+
+```
+window.a = 3;
+b = 4;
+console.log(a, window.a, this.a);
+console.log(b, window.b, this.b);
+```
