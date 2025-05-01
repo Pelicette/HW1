@@ -944,7 +944,30 @@ d();
 
 변수 c에 함수 d가 할당된다는 뜻이다. 
 
-c에 함수가 할당되었으므로 c()로 실행이 가능하지만 함수명인 d()로는 불가능하다.
+c에 함수가 할당되었으므로 c()로 실행이 가능하지만 함수명인 d()로는 불가능하다. error 출력
 
 하지만 함수 내부에서 함수명으로 실행은 가능하다.
 
+
+## 2-9
+
+아래의 예제를 기반으로 hoisting을 수행시 어떻게 자바 스크립트가 구동되는지 코드를 바꾸어 가면서 볼것이다.
+
+```
+console.log(sum(1, 2));
+console.log(multiply(3, 4));
+
+function sum(a, b) {
+  return a + b;
+}
+
+var multiply = function(a, b) {
+  return a * b;
+};
+```
+
+결과부터 말하자면 hoisting시 sum, multiply가 수집되고 sum은 동시에 함수가 할당된다.
+
+이후 수행과정시 console.log(sum(1, 2))에서 3이 출력되지만 
+
+console.log(multiply(3, 4))에서 multiply에 함수가 아직 할당되지 않았으므로 error가 출력된다.
