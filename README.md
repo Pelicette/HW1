@@ -971,3 +971,62 @@ var multiply = function(a, b) {
 이후 수행과정시 console.log(sum(1, 2))에서 3이 출력되지만 
 
 console.log(multiply(3, 4))에서 multiply에 함수가 아직 할당되지 않았으므로 error가 출력된다.
+
+
+
+## 2-10
+
+2-9의 예제에서 hoisting 이후를 코드의 순서를 바꾸어서 표현해 본것이다.
+
+```
+var sum = function sum(a, b){
+    return a + b;
+};
+var multiply;
+console.log(sum(1, 2));
+console.log(multiply(3, 4));
+  
+multiply = function(a, b){
+    return a * b;
+};
+```
+
+hoisting 과정을 코드 위로 올리고 수행과정을 아래로 옮겼다. 
+
+hoisting시 sum은 수집과 동시에 함수 할당, multiply 수집
+
+수행과정에서 console.log(sum(1, 2))은 3출력 console.log(multiply(3, 4))은 함수가 할당되지 않아서 error출력
+
+이후에야 multiply에 함수가 할당된다.
+
+
+## 2-11
+
+함수 선언문을 사용할시 발생하는 문제에 대한 예제이다. 
+
+선언문은 hoisting시 수집과 동시에 할당하기 때문에 발생하는 문제이다.
+
+함수 선언문이 아니라 함수 표현식으로 코딩해야한다.
+
+```
+console.log(sum(3, 4));
+
+function sum(x, y) {
+  return x + y;
+}
+
+var a = sum(1, 2);
+
+function sum(x, y) {
+  return x + ' + ' + y + ' = ' + (x + y);
+}
+
+var c = sum(1, 2);
+console.log(c);
+```
+
+위 코드에서 hoisting을할때 sum이 2번있다. sum의 수집 자체는 중복이므로 1번이지만 함수을 할당할때는 첫번째 함수를 할당한 이후 두번째 함수가 
+
+다시 할당 되어서 첫번째 함수가 덮어씌어진다. 때문에 모든 sum 함수는 마지막 sum 함수로 실행되게 되고 출력은 3+4=7, 1+2=3이 나오게 된다.
+
+var sum=function() 처럼 hoisting시 할당되지않는 표현식으로 사용해야한다.
