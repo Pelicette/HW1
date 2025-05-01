@@ -1194,3 +1194,20 @@ console.log(this === window);
 브라우저 환경에서 this는 window이므로 console.log(this)와 console.log(window)는 같은 결과를 출력한다.
 
 console.log(this === window) 또한 true로 출력된다. (this는 window와 같다는것을 증명)
+
+
+## 3-2
+
+node.js에서 앞의 3-1을 반복하였다. 
+
+```
+console.log(this);
+console.log(global);
+console.log(this === global);
+```
+
+다만 나의 환경은 브라우저이기때문에 console.log(this)는 정상출력되지만 
+
+console.log(global)는 error 메세지를 출력하였다.
+
+하지만 node.js 환경에서는 this===global이므로 예제 3-1과 같은 결과를 출력할것이다.
