@@ -1475,3 +1475,29 @@ outer()수행시 outer: function()밑의 console.log(this)은 obj가 outer을 �
 innerFunc() 수행시 var innerFunc = () => 은 this 자체를 바인딩 하지않아 this를 scope chain을 따라서 this를 찾는다. 이때 외부환경을
 
 찾는데 outer가 바로 밖에 있다. outer의 this를 그대로 가져와 obj를 가리킨다. obj출력
+
+
+## 3-12
+
+함수도 object의 일종이다 따라서 함수의 argument로 함수를 넘길수 있는데 그 함수를 콜백함수라고 한다.
+
+그 콜백함수의 this는 그 callback함수를 argument로 사용하는 함수가 결정한다.
+
+즉 그 함수의 내부를 들여다 봐야 알수있다.
+
+```
+setTimeout(function() {console.log(this);}, 300);
+[1, 2, 3, 4, 5].forEach(function(x) {console.log(this, x);});
+  
+document.body.innerHTML += '<button id="a">클릭</button>';
+document.body.querySelector('#a').addEventListener('click', function(e) { console.log(this, e);});
+```
+
+setTimeout과 forEach는 callback 함수의 this를 지정하지 않기때문에 자동으로 window를 가리키게된다. 
+
+따라서 [1, 2, 3, 4, 5].forEach(function(x) {console.log(this, x);})는 window를 각 배열값과 함깨 5번 출력되고 
+
+setTimeout(function() {console.log(this);}, 300);는 300ms 이후 window를 출력한다.
+
+document.body.querySelector('#a').addEventListener는 자신의 this를 callback함수에게 상속한다.
+
