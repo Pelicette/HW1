@@ -886,3 +886,29 @@ function a() {
   실제 2-4의 수행과정을 사람이 이해하기 좋게 순서를 바꾸었다.
 
   hoisting시 b는 function을 가리키고 있으므로 첫번째는 함수출력 bbb가 할당된후 bbb출력
+
+
+  ## 2-7
+
+2-6에 연속인 예제
+
+  ```
+  function a() {
+    var b;
+    var b = function b() {};
+  
+    console.log(b);
+    b = 'bbb';
+    console.log(b);
+    console.log(b);
+  }
+  a();
+  ```
+
+  마지막으로 function b() {}를 hoisting이 끝난이후 변수 b에 함수를 할당한 것처럼 보이기 위해 var b = function b() {}로 수정하였다.
+
+  이렇게 2-5의 코드를 사람이 이해하기 좋게 실제 자바 스크립트의 동작과정을 모사해보았다. 
+
+  변수 b hoisting으로 수집후 hoisting이 끝난 다음 수행과정에서 b에 함수를 할당,
+
+  출력으로 함수를 내보낸후 b에 bbb를 할당 출력으로 bbb를 2번 내보낸다.
