@@ -1573,3 +1573,35 @@ obj.method(2,3)수행시 method의 this는 obj이다. 따라서 console.log(this
 obj.method.call({ a: 4 }, 5, 6) 수행시 method의 this는 { a: 4 }이다. 따라서 console.log(this.a, x, y)는 
 
 console.log({ a: 4 }.a, 5, 6) 이므로 4,5,6을 출력한다.
+
+
+
+## 3-16
+
+apply 메서드는 call과 기능적으로 동일하지만 두번째 인자를 배열로받아 함수의 매개변수로 넘겨준다는 차이가 있다.
+
+
+```
+var func = function(a, b, c) {
+    console.log(this, a, b, c);
+};
+func.apply({ x: 1 }, [4, 5, 6]);
+```
+
+func.apply({ x: 1 }, [4, 5, 6]) 에서 func의 this는 { x: 1 }을 가리키고 func의 매개변수로4, 5, 6을 넘겨준다. 
+
+console.log(this, a, b, c)은 console.log({x: 1}, 4, 5, 6)과 같고 출력은 {x: 1} 4 5 6
+
+```
+var obj = {
+    a: 1,
+    method: function(x, y) {
+      console.log(this.a, x, y);
+    },
+};
+obj.method.apply({ a: 4 }, [5, 6]);
+```
+
+obj.method.apply({ a: 4 }, [5, 6]) 에서 obj의 this는 { a: 4 }을 가리키고 obj의 매개변수로 5, 6을 념겨준다. 
+
+console.log(this.a, x, y)는 console.log({ a: 4 }.a, 5, 6)과 같고 출력은 4, 5, 6
