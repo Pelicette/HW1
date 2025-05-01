@@ -1898,3 +1898,24 @@ func.bind({ x: 1 }, 4, 5)에서 바로 function을 수행하지는 않지만
 bindFunc2(6, 7)수행시 func.call({ x: 1 }, 4, 5,6,7)d을 수행한 것과 같은 효과를 가진다. 출력은{x: 1} 4 5 6 7
 
 bindFunc2(8, 9)수행시 func.call({ x: 1 }, 4, 5,8,9)d을 수행한 것과 같은 효과를 가진다. 출력은{x: 1} 4 5 8 9
+
+
+
+## 3-26
+
+bind메서드를 사용해 함수를 만들면 name property에 bound라는 접두어가 붇는다. 
+
+이것을 이용하면 bind가 사용된건지 안된건지 쉽게 구분할수있다.
+
+```
+var func = function(a, b, c, d) {
+  console.log(this, a, b, c, d);
+};
+var bindFunc = func.bind({ x: 1 }, 4, 5);
+console.log(func.name);
+console.log(bindFunc.name);
+```
+
+console.log(func.name) 처럼 bind를 사용하지 않은 것은 name property로 함수명인 func가 출력된다.
+
+console.log(bindFunc.name)처럼 bind를 사용한후 name property를 보면 bound func가 출력된다. 
