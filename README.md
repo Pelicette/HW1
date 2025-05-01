@@ -821,7 +821,7 @@ x=2 수행으로 x는 2를 가리키고 있다. 마지막 console.log(x)에서 2
 
 호이스팅에 대해 정확히 이해했다면 아래처럼 변수 선언을 위쪽으로 따로 모아주고 수행될 부분만 순서대로 써주면 
 
-같은 동작을 할것이라고 예상할수 있다.
+같은 동작을 할것이라고 예상할수 있다. hoisting이 먼저 선언된 변수들을 인식한것을 표현한것이다.
 
   ```
   function a() {
@@ -841,3 +841,23 @@ x=2 수행으로 x는 2를 가리키고 있다. 마지막 console.log(x)에서 2
   hoisting시 x는 한번만 수집되고 수행시 x는 1을 가리킨후 console.log(x)를 2번 수행하여 1을 2번 출력한다.
 
   이후 x는 2를 가리킨후 console.log(x)를 수행하여 2를 출력한다.
+
+
+## 2-5
+
+아래의 예제를 기반으로 hoisting을 수행시 어떻게 자바 스크립트가 구동되는지 2-2,3,4처럼 코드를 변환해 볼것이다.
+
+```
+function a() {
+    console.log(b);
+    var b = 'bbb';
+    console.log(b);
+    function b() {}
+    console.log(b);
+  }
+  a();
+  ```
+
+  hoisting시 b를 수집하는데 function b()는 hoisting단계에서 이미 함수를 가리키고 있다.
+
+  따라서 수행시 첫번째console.log(b)에서 함수를 출력하고 var b = 'bbb' 이후부터 bbb를 출력한다.
