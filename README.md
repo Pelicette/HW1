@@ -700,3 +700,33 @@ arr1은 undefined가 무시되지않고 string concate된다. index 0에서 ''+u
 arr2는 비어있는 index 0을 무시하여 index 1에서 ''+1+1수행, 결과적으로
 
 11이된다.
+
+
+## 1-22
+
+null의 type이 object라는 사실과 변수의 값이 비어있는 것을 확인하려면 어떻게 해야하는지 보여주는 예제이다.
+
+```
+var n = null;
+console.log(typeof n);
+
+console.log(n==undefined);
+console.log(n==null);
+```
+
+null의 type은 object이기 때문에 비어있더라도 typeof를 사용하면 object를 반환해 실제 object가 있는지
+
+null이 있는지 구분할수 없다.
+
+또한 ==로는 undefined와 null을 구분할수 없다.
+
+n==undefined, n==null모두 true로 나온다.
+
+```
+console.log(n===undefined);
+console.log(n===null);
+```
+
+정확히 비교하려면 ===를 써야한다.
+
+n===undefined 는 false, n===null 는 true라고 출력된다.
