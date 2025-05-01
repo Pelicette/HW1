@@ -1674,3 +1674,68 @@ var nodeList = document.querySelectorAll('div') 로 유배배열 객체
 var nodeArr = Array.prototype.slice.call(nodeList) 로 slice의 this를 nodeList로 만들어 유사배열 객체를 배열로만들어
 
 nodeArr에 넘긴다. 다음 nodeArr의 배열 값을 순회하며 출력한다.
+
+
+
+
+## 3-19
+
+string도 index와 length를 가지고 있기 때문에 유사배열 객체이다.
+
+원본 문자역에 변경을 주는 메서드 push, pop, shift, unshift, ,splice는 error를 발생시키고
+
+concate같이 대상이 반드시 배열이야하는 경우에는 결과가 정확하지 않다.
+
+```
+var str = 'abc def';
+
+Array.prototype.push.call(str, ', pushed string');
+```
+
+push 메서드는 원본을 수정해야 하는 메서드이기 때문에 유사배열 객체에 적용할수 없어 에러가 출력된다.
+
+```
+Array.prototype.concat.call(str, 'string');
+```
+
+concate의 경우 에러가 발생하지는 않지만 결과가 정확하지않다.
+
+```
+Array.prototype.every.call(str, function(char) {
+  return char !== ' ';
+}); 
+
+Array.prototype.some.call(str, function(char) {
+  return char === ' ';
+});
+
+var newArr = Array.prototype.map.call(str, function(char) {
+  return char + '!';
+});
+console.log(newArr); 
+```
+
+Array.prototype.map.call(str, function(char)으로 array안의 값을 하나씩 callbackfunction에 넣어 수행한후 newArr에 넘긴다.
+
+결과적으로  ['a!', 'b!', 'c!', ' !', 'd!', 'e!', 'f!']가 출력된다.
+
+```
+var newStr = Array.prototype.reduce.apply(str, [
+  function(string, char, i) {
+    return string + char + i;
+  },
+  '',
+]);
+console.log(newStr);
+```
+
+reduce는 callback function을 인자로 받고 초기값을 할당 가능하다.
+
+처음에는  string + char + i=''+a+0
+
+2번째는 string + char + i=a0+b+1
+
+3번째는 string + char + i=a0b1+c+2 ......
+
+이런식으로 모든 배열값에대해 반복된다. 결과적으로 a0b1c2 3d4e5f6을 출력한다.
+
