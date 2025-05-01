@@ -861,3 +861,28 @@ function a() {
   hoisting시 b를 수집하는데 function b()는 hoisting단계에서 이미 함수를 가리키고 있다.
 
   따라서 수행시 첫번째console.log(b)에서 함수를 출력하고 var b = 'bbb' 이후부터 bbb를 출력한다.
+
+
+
+  ## 2-6
+
+2-5의 연속인 예제
+
+  ```
+  function a() {
+    var b;
+    function b() {} 
+  
+    console.log(b);
+    b = 'bbb';
+    console.log(b);
+    console.log(b);
+  }
+  a();
+  ```
+
+  hoisting이 identifier를 먼저 수집하므로 선언 관련 line들을 위로 올리고 아래쪽에는 수행관련 line들을 둠으로써 
+
+  실제 2-4의 수행과정을 사람이 이해하기 좋게 순서를 바꾸었다.
+
+  hoisting시 b는 function을 가리키고 있으므로 첫번째는 함수출력 bbb가 할당된후 bbb출력
