@@ -1637,3 +1637,40 @@ console.log(arr);
 var arr = Array.prototype.slice.call(obj)로 Array.prototype.slice의 this가 obj를 가리키게하여 배열 매서드인 slice를 유사배열 객체에
 
 수행한다. 그 결과로 obj의 배열 복사본인 ['a', 'b', 'c', 'd']가 출력된다.
+
+
+
+## 3-18
+
+call apply를 활용한 또다른 예제이다. 
+
+```
+function a() {
+    var argv = Array.prototype.slice.call(arguments);
+    argv.forEach(function(arg) {
+      console.log(arg);
+    });
+}
+a(1, 2, 3);
+```
+
+a(1, 2, 3)동작시 var argv = Array.prototype.slice.call(arguments) 에서 argument 1, 2, 3을 slice의 this로 만들어 [1, 2, 3]배열로 
+
+만들었다. 그리고 그것을 순회하면서 배열의 각 값을 console log로 출력하였다. 
+
+```
+document.body.innerHTML = '<div>a</div><div>b</div><div>c</div>';
+var nodeList = document.querySelectorAll('div');
+var nodeArr = Array.prototype.slice.call(nodeList);
+nodeArr.forEach(function(node) {
+    console.log(node);
+});
+```
+
+var nodeList = document.querySelectorAll('div') 로 유배배열 객체
+
+0: <div>a</div> 1:<div>b</div> 2:<div>c</div> length 3을 만들고 nodeList에 넘긴다.
+
+var nodeArr = Array.prototype.slice.call(nodeList) 로 slice의 this를 nodeList로 만들어 유사배열 객체를 배열로만들어
+
+nodeArr에 넘긴다. 다음 nodeArr의 배열 값을 순회하며 출력한다.
