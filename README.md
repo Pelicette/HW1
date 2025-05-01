@@ -762,3 +762,31 @@ outer함수에서 inner()를 만나 inner의 환경정보를 수집해 inner E.C
 inner 실행시 undefined가 나오는데 hoisting이후 실행 단계시 a가 가리키는 값이 없기 때문이다.
 
 outer안의 a출력시 1이 나오는 이유는 outer안에 a변수가 스코프 체인을 통해 전역에 있는 a를 찾아 출력했기 때문이다. 
+
+
+## 2-2
+
+호이스팅과 코드 수행시 어떻게 되는가 보여주는 예제이다.
+
+자바 스크립트는 먼저 컨택스트 내부를 hoisting한 이후 코드가 수행된다.
+
+```
+function a(x) {
+    console.log(x);
+    var x; 
+    console.log(x); 
+    var x = 2; 
+    console.log(x); 
+  }
+  a(1);
+```
+
+a의 E.C에서 hoisting시 x를 수집한다. x가 3번 나오지만 1번만 수집된다. 
+
+수행 단계에서 x=1이므로 처음 console.log(x)에서 1출력, 두번째도 동일하게 아직 x=1이므로 1출력
+
+x=2 수행으로 x는 2를 가리키고 있다. 마지막 console.log(x)에서 2를 출력한다.
+
+위와 같은 단계로 hoisting과 실행이 별도로 나누어져 있기 때문에
+
+ var x를 한다고 해서 x가 가리키는게 없어지는게 아니다. -> undefined를 출력하지 않는다.
