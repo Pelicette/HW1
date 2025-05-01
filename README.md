@@ -1029,6 +1029,8 @@ console.log(c);
 
 다시 할당 되어서 첫번째 함수가 덮어씌어진다. 때문에 모든 sum 함수는 마지막 sum 함수로 실행되게 되고 출력은 3+4=7, 1+2=3이 나오게 된다.
 
+오류를 발생하지않고 잘못된 값으로 계속 진행되기 때문에 디버그에 큰 문제가 생긴다.
+
 var sum=function() 처럼 hoisting시 할당되지않는 표현식으로 사용해야한다.
 
 
@@ -1061,8 +1063,58 @@ hoisting 단계에서 sum, a, c가 수집되는데 sum은 중복이므로 한번
 
 이후 실행단계에서 console.log(sum(3, 4))수행시 sum에 할당된것이 없으므로 오류가 발생한다.
 
+오류가 발생했으므로 디버그를 더욱 쉽게 할수있다.
+
 맨 위의 console.log가 없었다면 sum에 함수가 할당되고 변수 a에 3이 저장될것이다.
 
 그다음 sum에 새로운 함수 가 할당되고 변수 c에 1+2=3이 할당되고 이것을 출력할것이다.
 
 결과적으로 각 변수에 다른 함수가 사용되었다.
+
+
+## 2-13
+
+스코프체인을 설명하기 위한 예제이다. 
+
+스코프는 식별자에 대한 유효범위인데 자바 스크립트는 어떤 스코프 내부에 없으면 끝나지 않고 외부까지 어떤 연결고리를 따라 찾아가게 되는데
+
+그것이 스코프 체인이다. 
+
+
+
+외부 환경은 선언될 당시의 LexicalEnvironment를 참조한다. 
+
+함수내부에 함수가 있는 구조가 반복되면 계속 선언될 당시의 LexicalEnvironment를 참조할것이다. 
+
+이것을 추적하면 마지막인 전역 LexicalEnvironment까지 따라갈수 있을것이다. 이런 과정이 스코프 체인에서 찾는것이다.
+
+
+```
+var a = 1;
+var outer = function() {
+  var inner = function() {
+    console.log(a);
+    var a = 3;
+  };
+  inner();
+  console.log(a);
+};
+outer();
+console.log(a);
+```
+
+전역 E.C의 내부 환경에는 a->1, outer->function 을 가리키고 있고 outer가 실행되었으므로 outer E.C가 call stack에 들어간다.
+
+이때 outer의 외부 환경은 global E.C를 가리킨다. outer의 내부환경은 innner->function을 가리키고 있다.
+
+inner 수행으로 inner E.C가 call stack에 들어간다.
+
+이때 inner수행시 변수 a가 hoisting은 되었지만 할당이 되지 않은체 console.log(a)수행, undefined 출력 
+
+이후 a에 3이 할당되지만 inner 종료로 inner E.C는 pop
+
+그다음 outer 내부에서 console.log(a)수행 그런데 outer내부에는 변수 a가 없다. 그렇다면 스코프 체인을 따라 전역에 있는 a=1을 가져온다.
+
+1출력 outer 종료로 outer E.C pop, 마지막 console.log(a)는 전역의 내부환경 a=1을 가져와 출력
+
+
