@@ -642,3 +642,61 @@ console.log(arr3);
 이 경우 빈것이 아닌 undefined가 있는것이다. 
 
 출력으로 undefined, undefined, undefined가 나온다.
+
+
+## 1-21
+
+실제 비어있는 값과 undefined가 배열 관련 매서드들에서 어떻게 다른가를 확인하는 예제이다.
+
+```
+var arr1=[undefined, 1];
+var arr2=[];
+arr2[1]=1;
+
+arr1.forEach(function (v,i){console.log(v,i);});
+arr2.forEach(function (v,i){console.log(v,i);});
+```
+
+순회하면서 index와 value를 출력하는 동작이다.
+
+arr1은 undefined가 자리를 차지하고 있으므로 무시되지않고 undefined 0 / 1 1 이출력된다.
+
+arrr2는 비어있는 index 0가 무시되기 때문에 1 1만 출력된다.
+
+```
+arr1.map(function(v,i){return v+i;});
+arr2.map(function(v,i){return v+i;});
+```
+
+value와 index를 더해서 새로운 배열을 반드는 동작이다.
+
+arr1은 undefined와 더할수 없으므로 NaN, index 1 value 1을 더해서 2가된다. [NaN, 2]
+
+arr2은 index 0는 무시되고 index 1은 1+1=2가 된다. [비어있음, 2]
+
+```
+arr1.filter(function(v){return !v;});
+arr2.filter(function(v){return !v;});
+```
+
+순회하면서 value가 없는것을 남기는 동작이다.
+
+arr1에는 value가 없는것이 undifined만 있으므로 undefined만 남는다.
+
+arr2에는 index 0은 건너뛰고 1은 filter되어 아무것도 남지 않는다.
+
+
+```
+arr1.reduce(function(p,c,i){return p+c+i;}, '');
+arr2.reduce(function(p,c,i){return p+c+i;}, '');
+```
+
+순회하면서 p+arry[i]+i를 string concate하는 동작이다.
+
+arr1은 undefined가 무시되지않고 string concate된다. index 0에서 ''+undefined+0, index 1에서 undefined0+1+1
+
+결과적으로 undefined011이된다.
+
+arr2는 비어있는 index 0을 무시하여 index 1에서 ''+1+1수행, 결과적으로
+
+11이된다.
