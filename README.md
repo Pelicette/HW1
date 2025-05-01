@@ -2030,3 +2030,41 @@ outer()수행시 outer: function()밑의 console.log(this)은 .표현식에서 �
 innerFunc() 수행시 var innerFunc = () => 은 this 자체를 바인딩 하지않아 this를 scope chain상 가장 가까운 this를 찾는데 그것이 outer의 
 
 this obj이다. 따라서 innerFunc에서 console.log(this)는 obj를 출력한다.
+
+
+
+## 3-30
+
+콜백함수를 인자로 가지는 매서드들 중에서는 콜백함수의 원하는 콜백함수의 this를 인자로 받아 설정할수있다.
+
+```
+var report = {
+    sum: 0,
+    count: 0,
+    add: function() {
+      var args = Array.prototype.slice.call(arguments);
+      args.forEach(function(entry) {
+        this.sum += entry;
+        ++this.count;
+      }, this);
+    },
+    average: function() {
+      return this.sum / this.count;
+    },
+};
+report.add(60, 85, 95);
+console.log(report.sum, report.count, report.average());
+```
+
+report.add(60, 85, 95) 수행시 add의 this report이고 add 내부에서는 argument 60, 85, 95을 배열로 복사한다.
+
+이후 forEach로 순회하면서 동작하는데 이때 콜백함수의 this를 add의 this 즉 report로 설정하였다.
+
+따라서 this.sum += entry는 reprot.sum+=entry, ++this.count는 ++report.count가 되어 add scope 밖의 변수=report의 변수들의 값을 바꾼다. 
+
+report.add(60, 85, 95) 동작 결과로 report.count는 인자 개수인 3이되고 report.sum은 240이 된다.
+
+이후 report.average() 수행시 이미 계산된 report.sum/report.count으로 평균값을 얻는다.
+
+console.log(report.sum, report.count, report.average())의 출력은 240, 3, 80이다.
+
