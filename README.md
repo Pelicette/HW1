@@ -1258,3 +1258,37 @@ b = 4;
 console.log(a, window.a, this.a);
 console.log(b, window.b, this.b);
 ```
+
+
+
+## 3-5
+
+전역변수 선언과 전역객체의 property로 선언간의 차이점을 설명하는 예제이다.
+
+```
+var a = 1;
+delete window.a;
+console.log(a, window.a, this.a);
+
+var b = 2;
+delete b;
+console.log(b, window.b, this.b);
+```
+
+delete 연산을 사용이 가능한 것이 전역변수는 결국 객체의 property이기 때문에 가능하다
+
+하지만 이것이 수행되지는 않는다 왜냐하면 전역변수 선언시 property cnfigurable속성이 false로 설정되기 때문이다.
+
+즉 전역변수로 선언하면 delete로 삭제되지 않는다. 따라서 출력은 111, 222로 변수가 사라지지않고 그대로 나온다.
+
+```
+window.c = 3;
+delete window.c;
+console.log(c, window.c, this.c);
+
+window.d = 4;
+delete d;
+console.log(d, window.d, this.d);
+```
+
+하지만 전역객체의 property로 선언할경우 delete로 삭제가 가능하여 console.log시 error메시지가 출력된다.
