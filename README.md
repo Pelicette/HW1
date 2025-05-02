@@ -1669,7 +1669,7 @@ nodeArr.forEach(function(node) {
 
 var nodeList = document.querySelectorAll('div') 로 유배배열 객체
 
-0: <div>a</div> 1:<div>b</div> 2:<div>c</div> length 3을 만들고 nodeList에 넘긴다.
+`0: <div>a</div> 1:<div>b</div> 2:<div>c</div> length 3`을 만들고 nodeList에 넘긴다.
 
 var nodeArr = Array.prototype.slice.call(nodeList) 로 slice의 this를 nodeList로 만들어 유사배열 객체를 배열로만들어
 
